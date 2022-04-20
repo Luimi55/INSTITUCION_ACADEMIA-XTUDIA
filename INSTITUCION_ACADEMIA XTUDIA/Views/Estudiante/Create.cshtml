@@ -2,6 +2,9 @@
 
 @{
     ViewBag.Title = "Create";
+    List<SelectListItem> listItemNacimiento = (List<SelectListItem>)ViewBag.Nacimiento;
+    List<SelectListItem> listItemCurso = (List<SelectListItem>)ViewBag.Curso;
+
 }
 
 <h2>Create</h2>
@@ -49,7 +52,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.lugarnacimientoid, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.lugarnacimientoid, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownList("datos", listItemNacimiento, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.lugarnacimientoid, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -73,7 +76,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.cursoid, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.cursoid, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownList("curso", listItemCurso, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.cursoid, "", new { @class = "text-danger" })
             </div>
         </div>
