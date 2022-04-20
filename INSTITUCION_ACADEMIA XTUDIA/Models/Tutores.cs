@@ -17,7 +17,6 @@ namespace INSTITUCION_ACADEMIA_XTUDIA.Models
         public int estadocivilid { get; set; }
         public string lugartrabajo { get; set; }
         public string direccion { get; set; }
-        public Nullable<System.DateTime> fecha_creacion { get; set; }
         public int tipotutorid { get; set; }
     }
 }
