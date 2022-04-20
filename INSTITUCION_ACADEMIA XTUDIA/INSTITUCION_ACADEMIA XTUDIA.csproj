@@ -129,6 +129,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>InstitucionDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Models\Correo.cs" />
     <Compile Include="Models\Estudiante.cs" />
     <Compile Include="Models\Tutores.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
