@@ -5,9 +5,9 @@ using System.Web;
 
 namespace INSTITUCION_ACADEMIA_XTUDIA.Models
 {
-    public class Correo
+    public class Telefono
     {
-        public string correoelectronico { get; set; }
+        public string numerotelefono { get; set; }
         public System.Guid tutorid { get; set; }
     }
 }
