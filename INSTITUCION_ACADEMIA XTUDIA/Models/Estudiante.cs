@@ -19,6 +19,5 @@ namespace INSTITUCION_ACADEMIA_XTUDIA.Models
         public string seccion { get; set; }
         public int nacionalidadid { get; set; }
         public int tiposangreid { get; set; }
-        public Nullable<System.DateTime> fecha_creacion { get; set; }
     }
 }
