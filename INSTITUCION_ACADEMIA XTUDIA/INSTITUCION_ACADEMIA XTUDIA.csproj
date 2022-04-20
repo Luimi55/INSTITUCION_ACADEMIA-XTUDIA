@@ -130,6 +130,7 @@
       <DependentUpon>InstitucionDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Models\Estudiante.cs" />
+    <Compile Include="Models\Tutores.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
