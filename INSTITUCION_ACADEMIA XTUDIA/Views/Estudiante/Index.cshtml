@@ -6,3 +6,50 @@
 
 <h2>Index</h2>
 
+<table id="estudianteTable">
+    <thead>
+        <tr>
+            <th>Matricula</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Fecha de nacimiento"</th>
+            <th>Lugar de nacimiento</th>
+            <th>Correo</th>
+            <th>Fotografia</th>
+            <th>Curso</th>
+            <th>Seccion</th>
+            <th>Nacionalidad</th>
+            <th>Tipo de sangre</th>
+        </tr>
+    </thead>
+</table>
+
+<link href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+@section scripts{
+    <script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#estudianteTable").DataTable({
+                "ajax": {
+                    "url": "/Estudiante/getEstudiantes",
+                "type": "GET",
+                "datatype": "json"
+                    },
+            "columns": [
+                { "data": "matricula" },
+                { "data": "nombre" },
+                { "data": "apellido" },
+                { "data": "fechanacimiento" },
+                { "data": "lugarnacimientoid" },
+                { "data": "correo" },
+                { "data": "fotografia" },
+                { "data": "cursoid" },
+                { "data": "seccion" },
+                { "data": "nacionalidadid" },
+                { "data": "tiposangreid" }
+        ]
+                    });
+         });
+    </script>
+}

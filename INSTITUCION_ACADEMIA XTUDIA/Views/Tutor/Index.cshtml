@@ -6,3 +6,50 @@
 
 <h2>Index</h2>
 
+<table id="tutorTable">
+    <thead>
+        <tr>
+            <th>Cedula</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Fecha de nacimiento</th>
+            <th>Lugar de nacimiento</th>
+            <th>Fotografia</th>
+            <th>Estado Civil</th>
+            <th>Lugar de trabajo</th>
+            <th>Direccion</th>
+            <th>Tipo de tutor</th>
+        </tr>
+    </thead>
+</table>
+
+<link href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+
+@section scripts{
+    <script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#tutorTable").DataTable({
+                "ajax": {
+                    "url": "/Tutor/getTutores",
+                "type": "GET",
+                "datatype": "json"
+                    },
+            "columns": [
+                { "data": "cedula" },
+                { "data": "nombre" },
+                { "data": "apellido" },
+                { "data": "fechanacimiento" },
+                { "data": "lugarnacimientoid" },
+                { "data": "fotografia" },
+                { "data": "estadocivilid" },
+                { "data": "lugartrabajo" },
+                { "data": "direccion" },
+                { "data": "tipotutorid" },
+        ]
+                    });
+         });
+    </script>
+ }
+

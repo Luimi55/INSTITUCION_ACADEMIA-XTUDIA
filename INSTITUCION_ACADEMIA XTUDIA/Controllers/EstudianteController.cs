@@ -14,6 +14,32 @@ namespace INSTITUCION_ACADEMIA_XTUDIA.Controllers
     {
 
         [HttpGet]
+        public ActionResult getEstudiantes()
+        {
+            List<Estudiante> estList = new List<Estudiante>();
+            var ta = new InstitucionDataSetTableAdapters.EstudiantesTableAdapter();
+            var dt = ta.GetData();
+            foreach (InstitucionDataSet.EstudiantesRow row in dt.Rows)
+            {
+                Estudiante est = new Estudiante();
+                est.matricula = row.matricula;
+                est.nombre = row.nombre;
+                est.apellido = row.apellido;
+                est.fechanacimiento = row.fechanacimiento;
+                est.lugarnacimientoid = row.lugarnacimientoid.ToString();
+                est.correo = row.correo;
+                est.fotografia = row.fotografia;
+                est.cursoid = row.cursoid.ToString();
+                est.seccion = row.seccion;
+                est.nacionalidadid = row.nacionalidadid;
+                est.tiposangreid = row.tiposangreid;
+                estList.Add(est);
+            }
+            return Json(new { data = estList }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpGet]
         public ActionResult Create()
         {
             getLugarNacimientoPaises();
@@ -24,7 +50,10 @@ namespace INSTITUCION_ACADEMIA_XTUDIA.Controllers
         [HttpPost]
         public ActionResult Create(Estudiante modelEstudiante)
         {
-            string estFoto = saveFotografia(modelEstudiante.fotografia);
+            string estFoto = saveFotografia(modelEstudiante.fileBase);
+            int estLug = Int32.Parse(modelEstudiante.lugarnacimientoid);
+            int estCur = Int32.Parse(modelEstudiante.cursoid);
+
             var taEst = new InstitucionDataSetTableAdapters.EstudiantesTableAdapter();
             var estId = Guid.NewGuid();
             taEst.insertEstudiantes(
@@ -33,10 +62,10 @@ namespace INSTITUCION_ACADEMIA_XTUDIA.Controllers
                 modelEstudiante.nombre,
                 modelEstudiante.apellido,
                 modelEstudiante.fechanacimiento,
-                1,
+                estLug,
                 modelEstudiante.correo,
                 estFoto,
-                1,
+                estCur,
                 modelEstudiante.seccion,
                 modelEstudiante.nacionalidadid,
                 modelEstudiante.tiposangreid
@@ -59,21 +88,6 @@ namespace INSTITUCION_ACADEMIA_XTUDIA.Controllers
         // GET: Estudiante
         public ActionResult Index()
         {
-
-            getLugarNacimientoPaises();
-            getCursoNombres();
-
-            //List<SelectListItem> items = listnum.ConvertAll(d =>
-            //{
-            //    return new SelectListItem()
-            //    {
-            //        Text = listnum
-            //        Value = listnum[0].ToString(),
-            //        Selected = false
-            //    };
-            //});
-
-
             return View();
         }
 
@@ -102,38 +116,6 @@ namespace INSTITUCION_ACADEMIA_XTUDIA.Controllers
             {
                 SelectListItem item = new SelectListItem();
                 item.Text = row.nombre;
-                item.Value = row.nombre;
-                item.Selected = false;
-                listItem.Add(item);
-            }
-            ViewBag.Curso = listItem;
-        }
-
-        public void getSeccionByCurso()
-        {
-            //List<SelectListItem> listItem = new List<SelectListItem>();
-            //var ta = new InstitucionDataSetTableAdapters.SeccionTableAdapter();
-            //var dt = ta.getSeccionByCurso();
-            //foreach (InstitucionDataSet.CursosRow row in dt.Rows)
-            //{
-            //    SelectListItem item = new SelectListItem();
-            //    item.Text = row.nombre;
-            //    item.Value = row.nombre;
-            //    item.Selected = false;
-            //    listItem.Add(item);
-            //}
-            //ViewBag.Curso = listItem;
-        }
-
-        public void getNacionalidadNombres()
-        {
-            List<SelectListItem> listItem = new List<SelectListItem>();
-            var ta = new InstitucionDataSetTableAdapters.CursosTableAdapter();
-            var dt = ta.getCursoNombres();
-            foreach (InstitucionDataSet.CursosRow row in dt.Rows)
-            {
-                SelectListItem item = new SelectListItem();
-                item.Text = row.nombre;
                 item.Value = row.cursoid.ToString();
                 item.Selected = false;
                 listItem.Add(item);
@@ -141,9 +123,41 @@ namespace INSTITUCION_ACADEMIA_XTUDIA.Controllers
             ViewBag.Curso = listItem;
         }
 
-        public void getTipoSangreNombres()
-        {
+        //public void getSeccionByCurso()
+        //{
+        //    //List<SelectListItem> listItem = new List<SelectListItem>();
+        //    //var ta = new InstitucionDataSetTableAdapters.SeccionTableAdapter();
+        //    //var dt = ta.getSeccionByCurso();
+        //    //foreach (InstitucionDataSet.CursosRow row in dt.Rows)
+        //    //{
+        //    //    SelectListItem item = new SelectListItem();
+        //    //    item.Text = row.nombre;
+        //    //    item.Value = row.nombre;
+        //    //    item.Selected = false;
+        //    //    listItem.Add(item);
+        //    //}
+        //    //ViewBag.Curso = listItem;
+        //}
 
-        }
+        //public void getNacionalidadNombres()
+        //{
+        //    List<SelectListItem> listItem = new List<SelectListItem>();
+        //    var ta = new InstitucionDataSetTableAdapters.CursosTableAdapter();
+        //    var dt = ta.getCursoNombres();
+        //    foreach (InstitucionDataSet.CursosRow row in dt.Rows)
+        //    {
+        //        SelectListItem item = new SelectListItem();
+        //        item.Text = row.nombre;
+        //        item.Value = row.cursoid.ToString();
+        //        item.Selected = false;
+        //        listItem.Add(item);
+        //    }
+        //    ViewBag.Curso = listItem;
+        //}
+
+        //public void getTipoSangreNombres()
+        //{
+
+        //}
     }
 }

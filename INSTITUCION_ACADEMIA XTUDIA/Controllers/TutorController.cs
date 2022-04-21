@@ -11,6 +11,30 @@ namespace INSTITUCION_ACADEMIA_XTUDIA.Controllers
     public class TutorController : Controller
     {
         [HttpGet]
+        public ActionResult getTutores()
+        {
+            List<Tutores> tutList = new List<Tutores>();
+            var ta = new InstitucionDataSetTableAdapters.TutoresTableAdapter();
+            var dt = ta.GetData();
+            foreach (InstitucionDataSet.TutoresRow row in dt.Rows)
+            {
+                Tutores tut = new Tutores();
+                tut.cedula = row.cedula;
+                tut.nombre = row.nombre;
+                tut.apellido = row.apellido;
+                tut.fechanacimiento = row.fechanacimiento;
+                tut.lugarnacimientoid = row.lugarnacimientoid;
+                tut.fotografia = row.fotografia;
+                tut.estadocivilid = row.estadocivilid;
+                tut.lugartrabajo = row.lugartrabajo;
+                tut.direccion = row.direccion;
+                tut.tipotutorid = row.tipotutorid;
+                tutList.Add(tut);
+            }
+            return Json(new { data = tutList }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
@@ -23,7 +47,7 @@ namespace INSTITUCION_ACADEMIA_XTUDIA.Controllers
             string lastPart = path.Split('/').Last();
             Guid estId = Guid.Parse(lastPart);
 
-            string tutFoto = saveFotografia(modelTutor.fotografia);
+            string tutFoto = saveFotografia(modelTutor.fileBase);
             var taTut = new InstitucionDataSetTableAdapters.TutoresTableAdapter();
             var tutId = Guid.NewGuid();
 

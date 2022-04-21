@@ -12,10 +12,11 @@ namespace INSTITUCION_ACADEMIA_XTUDIA.Models
         public string nombre { get; set; }
         public string apellido { get; set; }
         public System.DateTime fechanacimiento { get; set; }
-        public int lugarnacimientoid { get; set; }
+        public string lugarnacimientoid { get; set; }
         public string correo { get; set; }
-        public HttpPostedFileBase fotografia { get; set; }
-        public int cursoid { get; set; }
+        public string fotografia { get; set; }
+        public HttpPostedFileBase fileBase { get; set; }
+        public string cursoid { get; set; }
         public string seccion { get; set; }
         public int nacionalidadid { get; set; }
         public int tiposangreid { get; set; }
