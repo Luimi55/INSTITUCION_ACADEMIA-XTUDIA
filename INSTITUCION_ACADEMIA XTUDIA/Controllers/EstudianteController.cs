@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Dynamic;
+using INSTITUCION_ACADEMIA_XTUDIA.Models;
+using System.IO;
 
 namespace INSTITUCION_ACADEMIA_XTUDIA.Controllers
 {
@@ -21,6 +24,7 @@ namespace INSTITUCION_ACADEMIA_XTUDIA.Controllers
         [HttpPost]
         public ActionResult Create(Estudiante modelEstudiante)
         {
+            string estFoto = saveFotografia(modelEstudiante.fotografia);
             var taEst = new InstitucionDataSetTableAdapters.EstudiantesTableAdapter();
             var estId = Guid.NewGuid();
             taEst.insertEstudiantes(
@@ -31,14 +35,24 @@ namespace INSTITUCION_ACADEMIA_XTUDIA.Controllers
                 modelEstudiante.fechanacimiento,
                 1,
                 modelEstudiante.correo,
-                modelEstudiante.fotografia,
+                estFoto,
                 1,
                 modelEstudiante.seccion,
                 modelEstudiante.nacionalidadid,
                 modelEstudiante.tiposangreid
                 );
 
-            return RedirectToAction("Index");
+            return RedirectToAction("../Tutor/Create/" + estId);
+        }
+
+        public string saveFotografia(HttpPostedFileBase image)
+        {
+            string fileName = Path.GetFileNameWithoutExtension(image.FileName);
+            string imagePath = "~/Images/" + fileName;
+            fileName = Path.Combine(Server.MapPath("~/Images/"), fileName);
+            image.SaveAs(fileName);
+            return imagePath;
+
         }
 
 

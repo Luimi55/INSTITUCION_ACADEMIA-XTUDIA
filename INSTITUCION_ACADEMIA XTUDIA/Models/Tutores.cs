@@ -13,7 +13,7 @@ namespace INSTITUCION_ACADEMIA_XTUDIA.Models
         public string apellido { get; set; }
         public System.DateTime fechanacimiento { get; set; }
         public int lugarnacimientoid { get; set; }
-        public string fotografia { get; set; }
+        public HttpPostedFileBase fotografia { get; set; }
         public int estadocivilid { get; set; }
         public string lugartrabajo { get; set; }
         public string direccion { get; set; }

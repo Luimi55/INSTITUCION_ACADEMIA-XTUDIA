@@ -14,7 +14,7 @@ namespace INSTITUCION_ACADEMIA_XTUDIA.Models
         public System.DateTime fechanacimiento { get; set; }
         public int lugarnacimientoid { get; set; }
         public string correo { get; set; }
-        public string fotografia { get; set; }
+        public HttpPostedFileBase fotografia { get; set; }
         public int cursoid { get; set; }
         public string seccion { get; set; }
         public int nacionalidadid { get; set; }
