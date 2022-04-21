@@ -1,4 +1,5 @@
-﻿using System;
+﻿using INSTITUCION_ACADEMIA_XTUDIA.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,8 +9,41 @@ namespace INSTITUCION_ACADEMIA_XTUDIA.Controllers
 {
     public class EstudianteController : Controller
     {
-        // GET: Estudiante
+
+        [HttpGet]
         public ActionResult Create()
+        {
+            getLugarNacimientoPaises();
+            getCursoNombres();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(Estudiante modelEstudiante)
+        {
+            var taEst = new InstitucionDataSetTableAdapters.EstudiantesTableAdapter();
+            var estId = Guid.NewGuid();
+            taEst.insertEstudiantes(
+                estId,
+                modelEstudiante.matricula,
+                modelEstudiante.nombre,
+                modelEstudiante.apellido,
+                modelEstudiante.fechanacimiento,
+                1,
+                modelEstudiante.correo,
+                modelEstudiante.fotografia,
+                1,
+                modelEstudiante.seccion,
+                modelEstudiante.nacionalidadid,
+                modelEstudiante.tiposangreid
+                );
+
+            return RedirectToAction("Index");
+        }
+
+
+        // GET: Estudiante
+        public ActionResult Index()
         {
 
             getLugarNacimientoPaises();
@@ -38,7 +72,7 @@ namespace INSTITUCION_ACADEMIA_XTUDIA.Controllers
             {
                 SelectListItem item = new SelectListItem();
                 item.Text = row.pais;
-                item.Value = row.pais;
+                item.Value = row.lugarnacimientoid.ToString();
                 item.Selected = false;
                 listItem.Add(item);
             }
@@ -63,18 +97,18 @@ namespace INSTITUCION_ACADEMIA_XTUDIA.Controllers
 
         public void getSeccionByCurso()
         {
-            List<SelectListItem> listItem = new List<SelectListItem>();
-            var ta = new InstitucionDataSetTableAdapters.SeccionTableAdapter();
-            var dt = ta.getSeccionByCurso();
-            foreach (InstitucionDataSet.CursosRow row in dt.Rows)
-            {
-                SelectListItem item = new SelectListItem();
-                item.Text = row.nombre;
-                item.Value = row.nombre;
-                item.Selected = false;
-                listItem.Add(item);
-            }
-            ViewBag.Curso = listItem;
+            //List<SelectListItem> listItem = new List<SelectListItem>();
+            //var ta = new InstitucionDataSetTableAdapters.SeccionTableAdapter();
+            //var dt = ta.getSeccionByCurso();
+            //foreach (InstitucionDataSet.CursosRow row in dt.Rows)
+            //{
+            //    SelectListItem item = new SelectListItem();
+            //    item.Text = row.nombre;
+            //    item.Value = row.nombre;
+            //    item.Selected = false;
+            //    listItem.Add(item);
+            //}
+            //ViewBag.Curso = listItem;
         }
 
         public void getNacionalidadNombres()
@@ -86,7 +120,7 @@ namespace INSTITUCION_ACADEMIA_XTUDIA.Controllers
             {
                 SelectListItem item = new SelectListItem();
                 item.Text = row.nombre;
-                item.Value = row.nombre;
+                item.Value = row.cursoid.ToString();
                 item.Selected = false;
                 listItem.Add(item);
             }
