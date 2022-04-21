@@ -4,16 +4,64 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Dynamic;
-using INSTITUCION_ACADEMIA_XTUDIA.Models;
 using System.IO;
 
 namespace INSTITUCION_ACADEMIA_XTUDIA.Controllers
 {
     public class EstudianteController : Controller
     {
-
         [HttpGet]
+        public ActionResult Edit(Guid id)
+        {
+            getLugarNacimientoPaises();
+            getCursoNombres();
+
+            Estudiante est = new Estudiante();
+            var ta = new InstitucionDataSetTableAdapters.EstudiantesTableAdapter();
+            var dt = ta.getEstudianteById(id);
+            foreach (InstitucionDataSet.EstudiantesRow row in dt.Rows)
+            {
+                est.estudianteid = row.estudianteid;
+                est.matricula = row.matricula;
+                est.nombre = row.nombre;
+                est.apellido = row.apellido;
+                est.fechanacimiento = row.fechanacimiento;
+                est.lugarnacimientoid = row.lugarnacimientoid.ToString();
+                est.correo = row.correo;
+                est.fotografia = row.fotografia;
+                est.cursoid = row.cursoid.ToString();
+                est.seccion = row.seccion;
+                est.nacionalidadid = row.nacionalidadid;
+                est.tiposangreid = row.tiposangreid;
+            }
+            return View(est);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Estudiante modelEstudiante)
+        {
+            var ta = new InstitucionDataSetTableAdapters.EstudiantesTableAdapter();
+            int estLug = Int32.Parse(modelEstudiante.lugarnacimientoid);
+            int estCur = Int32.Parse(modelEstudiante.cursoid);
+            var dt = ta.updateEstudiantes(
+                modelEstudiante.estudianteid,
+                modelEstudiante.matricula,
+                modelEstudiante.nombre,
+                modelEstudiante.apellido,
+                modelEstudiante.fechanacimiento,
+                estLug,
+                modelEstudiante.correo,
+                modelEstudiante.fotografia,
+                estCur,
+                modelEstudiante.seccion,
+                modelEstudiante.nacionalidadid,
+                modelEstudiante.tiposangreid
+                );
+            return RedirectToAction("Index");
+        }
+
+
+            [HttpGet]
         public ActionResult getEstudiantes()
         {
             List<Estudiante> estList = new List<Estudiante>();
@@ -22,6 +70,7 @@ namespace INSTITUCION_ACADEMIA_XTUDIA.Controllers
             foreach (InstitucionDataSet.EstudiantesRow row in dt.Rows)
             {
                 Estudiante est = new Estudiante();
+                est.estudianteid = row.estudianteid;
                 est.matricula = row.matricula;
                 est.nombre = row.nombre;
                 est.apellido = row.apellido;

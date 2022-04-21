@@ -188,6 +188,7 @@
     <Content Include="Views\Estudiante\Index.cshtml" />
     <Content Include="Views\Tutor\Create.cshtml" />
     <Content Include="Views\Tutor\Index.cshtml" />
+    <Content Include="Views\Estudiante\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
