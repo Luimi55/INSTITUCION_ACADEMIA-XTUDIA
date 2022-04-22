@@ -19,6 +19,7 @@
             <th>Lugar de trabajo</th>
             <th>Direccion</th>
             <th>Tipo de tutor</th>
+            <th>Edit</th>
         </tr>
     </thead>
 </table>
@@ -47,6 +48,12 @@
                 { "data": "lugartrabajo" },
                 { "data": "direccion" },
                 { "data": "tipotutorid" },
+                {
+                    "data": "tutorid",
+                    "mRender": function (data, type, full) {
+                        return '<a class="btn btn-info btn-sm" href=../Tutor/Edit/' + data + '>' + 'Edit' + '</a>';
+                    }
+                }
         ]
                     });
          });

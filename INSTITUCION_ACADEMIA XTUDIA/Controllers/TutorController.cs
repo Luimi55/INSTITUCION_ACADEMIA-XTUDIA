@@ -11,6 +11,49 @@ namespace INSTITUCION_ACADEMIA_XTUDIA.Controllers
     public class TutorController : Controller
     {
         [HttpGet]
+        public ActionResult Edit(Guid id)
+        {
+            Tutores tut = new Tutores();
+            var ta = new InstitucionDataSetTableAdapters.TutoresTableAdapter();
+            var dt = ta.getTutorById(id);
+            foreach (InstitucionDataSet.TutoresRow row in dt.Rows)
+            {
+                tut.tutorid = row.tutorid;
+                tut.cedula = row.cedula;
+                tut.nombre = row.nombre;
+                tut.apellido = row.apellido;
+                tut.fechanacimiento = row.fechanacimiento;
+                tut.lugarnacimientoid = row.lugarnacimientoid;
+                tut.fotografia = row.fotografia;
+                tut.estadocivilid = row.estadocivilid;
+                tut.lugartrabajo = row.lugartrabajo;
+                tut.direccion = row.direccion;
+                tut.tipotutorid = row.tipotutorid;
+            }
+                return View(tut);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Tutores modelTutor)
+        {
+            var ta = new InstitucionDataSetTableAdapters.TutoresTableAdapter();
+            var dt = ta.updateTutores(
+                modelTutor.tutorid,
+                modelTutor.cedula,
+                modelTutor.nombre,
+                modelTutor.apellido,
+                modelTutor.fechanacimiento,
+                modelTutor.lugarnacimientoid,
+                modelTutor.fotografia,
+                modelTutor.estadocivilid,
+                modelTutor.lugartrabajo,
+                modelTutor.direccion,
+                modelTutor.tipotutorid
+                );
+            return RedirectToAction("Index");
+        }
+
+            [HttpGet]
         public ActionResult getTutores()
         {
             List<Tutores> tutList = new List<Tutores>();
@@ -19,6 +62,7 @@ namespace INSTITUCION_ACADEMIA_XTUDIA.Controllers
             foreach (InstitucionDataSet.TutoresRow row in dt.Rows)
             {
                 Tutores tut = new Tutores();
+                tut.tutorid = row.tutorid;
                 tut.cedula = row.cedula;
                 tut.nombre = row.nombre;
                 tut.apellido = row.apellido;
