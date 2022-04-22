@@ -22,7 +22,6 @@
             <th>Nacionalidad</th>
             <th>Tipo de sangre</th>
             <th>Edit</th>
-            <th>Mostrar Tutor</th>
 
         </tr>
     </thead>
@@ -58,12 +57,7 @@
                             return '<a class="btn btn-info btn-sm" href=../Estudiante/Edit/' + data + '>' + 'Edit' + '</a>';
                         }
                     },
-                    {
-                        "data": "estudianteid",
-                        "mRender": function (data, type, full) {
-                            return '<a class="btn btn-dark" href=../Tutor/Index/' + data + '>' + 'Mostrar' + '</a>';
-                        }
-                    }
+                   
                 ]
             });
         });
