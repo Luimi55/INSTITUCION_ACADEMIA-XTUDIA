@@ -5,7 +5,8 @@
 }
 
 <h2>Index</h2>
-
+<button class="btn btn-secondary">@Html.ActionLink("CREAR ESTUDIANTE", "Create", "Estudiante")</button>
+<button class="btn btn-secondary">@Html.ActionLink("MOSTRAR TUTORES", "Index", "Tutor")</button>
 <table id="estudianteTable">
     <thead>
         <tr>
@@ -21,7 +22,8 @@
             <th>Nacionalidad</th>
             <th>Tipo de sangre</th>
             <th>Edit</th>
-            
+            <th>Mostrar Tutor</th>
+
         </tr>
     </thead>
 </table>
@@ -35,29 +37,35 @@
             $("#estudianteTable").DataTable({
                 "ajax": {
                     "url": "/Estudiante/getEstudiantes",
-                "type": "GET",
-                "datatype": "json"
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "matricula" },
+                    { "data": "nombre" },
+                    { "data": "apellido" },
+                    { "data": "fechanacimiento" },
+                    { "data": "lugarnacimientoid" },
+                    { "data": "correo" },
+                    { "data": "fotografia" },
+                    { "data": "cursoid" },
+                    { "data": "seccion" },
+                    { "data": "nacionalidadid" },
+                    { "data": "tiposangreid" },
+                    {
+                        "data": "estudianteid",
+                        "mRender": function (data, type, full) {
+                            return '<a class="btn btn-info btn-sm" href=../Estudiante/Edit/' + data + '>' + 'Edit' + '</a>';
+                        }
                     },
-            "columns": [
-                { "data": "matricula" },
-                { "data": "nombre" },
-                { "data": "apellido" },
-                { "data": "fechanacimiento" },
-                { "data": "lugarnacimientoid" },
-                { "data": "correo" },
-                { "data": "fotografia" },
-                { "data": "cursoid" },
-                { "data": "seccion" },
-                { "data": "nacionalidadid" },
-                { "data": "tiposangreid" },
-                {
-                    "data": "estudianteid",
-                    "mRender": function (data, type, full) {
-                        return '<a class="btn btn-info btn-sm" href=../Estudiante/Edit/' + data + '>' + 'Edit' + '</a>';
+                    {
+                        "data": "estudianteid",
+                        "mRender": function (data, type, full) {
+                            return '<a class="btn btn-dark" href=../Tutor/Index/' + data + '>' + 'Mostrar' + '</a>';
+                        }
                     }
-                }
-        ]
-                    });
-         });
+                ]
+            });
+        });
     </script>
 }

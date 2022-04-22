@@ -5,6 +5,7 @@
 }
 
 <h2>Index</h2>
+<button class="btn btn-secondary">@Html.ActionLink("CREAR TUTOR", "Create", "Tutor")</button>
 
 <table id="tutorTable">
     <thead>
@@ -33,30 +34,30 @@
         $(document).ready(function () {
             $("#tutorTable").DataTable({
                 "ajax": {
-                    "url": "/Tutor/getTutores",
-                "type": "GET",
-                "datatype": "json"
-                    },
-            "columns": [
-                { "data": "cedula" },
-                { "data": "nombre" },
-                { "data": "apellido" },
-                { "data": "fechanacimiento" },
-                { "data": "lugarnacimientoid" },
-                { "data": "fotografia" },
-                { "data": "estadocivilid" },
-                { "data": "lugartrabajo" },
-                { "data": "direccion" },
-                { "data": "tipotutorid" },
-                {
-                    "data": "tutorid",
-                    "mRender": function (data, type, full) {
-                        return '<a class="btn btn-info btn-sm" href=../Tutor/Edit/' + data + '>' + 'Edit' + '</a>';
+                    "url": "/Tutor/getTutoresByEstudiante",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "cedula" },
+                    { "data": "nombre" },
+                    { "data": "apellido" },
+                    { "data": "fechanacimiento" },
+                    { "data": "lugarnacimientoid" },
+                    { "data": "fotografia" },
+                    { "data": "estadocivilid" },
+                    { "data": "lugartrabajo" },
+                    { "data": "direccion" },
+                    { "data": "tipotutorid" },
+                    {
+                        "data": "tutorid",
+                        "mRender": function (data, type, full) {
+                            return '<a class="btn btn-info btn-sm" href=../Tutor/Edit/' + data + '>' + 'Edit' + '</a>';
+                        }
                     }
-                }
-        ]
-                    });
-         });
+                ]
+            });
+        });
     </script>
- }
+}
 

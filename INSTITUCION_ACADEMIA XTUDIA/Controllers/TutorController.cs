@@ -10,6 +10,7 @@ namespace INSTITUCION_ACADEMIA_XTUDIA.Controllers
 {
     public class TutorController : Controller
     {
+
         [HttpGet]
         public ActionResult Edit(Guid id)
         {
@@ -53,9 +54,13 @@ namespace INSTITUCION_ACADEMIA_XTUDIA.Controllers
             return RedirectToAction("Index");
         }
 
-            [HttpGet]
-        public ActionResult getTutores()
+        [HttpGet]
+        public ActionResult getTutoresByEstudiante()
         {
+            //string path = Request.Url.AbsoluteUri;
+            //string lastPart = path.Split('/').Last();
+            //Guid estId = Guid.Parse(lastPart);
+
             List<Tutores> tutList = new List<Tutores>();
             var ta = new InstitucionDataSetTableAdapters.TutoresTableAdapter();
             var dt = ta.GetData();
@@ -115,7 +120,7 @@ namespace INSTITUCION_ACADEMIA_XTUDIA.Controllers
                 tutId
                 );
 
-            return RedirectToAction("Index");
+            return RedirectToAction("../Estudiante/Index");
         }
 
         public string saveFotografia(HttpPostedFileBase image)
@@ -132,6 +137,7 @@ namespace INSTITUCION_ACADEMIA_XTUDIA.Controllers
         // GET: Tutor
         public ActionResult Index()
         {
+
             return View();
         }
     }
